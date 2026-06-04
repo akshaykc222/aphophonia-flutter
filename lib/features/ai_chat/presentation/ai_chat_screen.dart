@@ -71,7 +71,6 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
   Widget build(BuildContext context) {
     final chat = ref.watch(aiChatProvider);
     final canSend = ref.watch(aiChatCanSendProvider);
-    final session = ref.watch(authSessionProvider).valueOrNull;
     final sessionLoading = ref.watch(authSessionProvider).isLoading;
     final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
 
@@ -101,28 +100,6 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
                 },
               ),
             ),
-            if (session == null && !sessionLoading)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Text(
-                      ArKwStrings.chatNotSignedIn,
-                      style: AppTypography.body16.copyWith(
-                        color: AppColors.muted,
-                        fontSize: 13,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    TextButton(
-                      onPressed: () => context.push(
-                        '/auth/sign-in?redirect=${Uri.encodeComponent('/assistant')}',
-                      ),
-                      child: Text(ArKwStrings.signIn),
-                    ),
-                  ],
-                ),
-              ),
             if (chat.error != null)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),

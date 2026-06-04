@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/config/env.dart';
 import '../../../core/l10n/ar_kw_strings.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
-import '../../auth/presentation/auth_providers.dart';
+import '../../subscription/presentation/billing_providers.dart';
+import '../../subscription/presentation/subscription_screen.dart';
 
 class MainShell extends ConsumerWidget {
   const MainShell({super.key, required this.child});
@@ -24,7 +26,31 @@ class MainShell extends ConsumerWidget {
     final location = GoRouterState.of(context).uri.toString();
     final index = _index(location);
 
-    final session = ref.watch(authSessionProvider).valueOrNull;
+    if (!Env.isBillingConfigured) {
+      return _BillingConfigError(
+        message: ArKwStrings.billingNotConfigured,
+      );
+    }
+
+    final billingAsync = ref.watch(billingStatusProvider);
+
+    if (billingAsync.isLoading) {
+      return const Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (billingAsync.hasError) {
+      return _BillingConfigError(
+        message: ArKwStrings.billingStatusLoadFailed,
+        onRetry: () => ref.invalidate(billingStatusProvider),
+      );
+    }
+
+    if (billingAsync.hasValue && billingAsync.value!.active == false) {
+      return const SubscriptionScreen(required: true);
+    }
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -54,13 +80,7 @@ class MainShell extends ConsumerWidget {
                   icon: Icons.smart_toy_outlined,
                   selectedIcon: Icons.smart_toy,
                   selected: index == 1,
-                  onTap: () {
-                    if (session == null) {
-                      context.push('/auth/sign-in?redirect=${Uri.encodeComponent('/assistant')}');
-                    } else {
-                      context.go('/assistant');
-                    }
-                  },
+                  onTap: () => context.go('/assistant'),
                 ),
                 _NavItem(
                   label: ArKwStrings.navTenders,
@@ -76,6 +96,49 @@ class MainShell extends ConsumerWidget {
                   selected: index == 3,
                   onTap: () => context.go('/profile'),
                 ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BillingConfigError extends StatelessWidget {
+  const _BillingConfigError({
+    required this.message,
+    this.onRetry,
+  });
+
+  final String message;
+  final VoidCallback? onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error_outline, size: 48, color: AppColors.muted),
+                const SizedBox(height: 16),
+                Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: AppTypography.body16.copyWith(color: AppColors.muted),
+                ),
+                if (onRetry != null) ...[
+                  const SizedBox(height: 24),
+                  FilledButton(
+                    onPressed: onRetry,
+                    child: Text(ArKwStrings.retry),
+                  ),
+                ],
               ],
             ),
           ),

@@ -59,7 +59,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     });
     try {
       await repo.verifyEmailOtp(email: widget.email, token: _code);
-      if (mounted) context.go('/');
+      if (mounted) context.go('/subscription');
     } on AuthException catch (e) {
       setState(() => _error = mapAuthError(e));
     } catch (e) {
@@ -76,7 +76,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
       await repo.resendEmailOtp(widget.email);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text(ArKwStrings.codeResent)),
+          SnackBar(content: Text(ArKwStrings.codeResent)),
         );
       }
     } on AuthException catch (e) {
@@ -165,7 +165,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
           const SizedBox(height: AppSpacing.lg),
           TextButton(
             onPressed: _resend,
-            child: const Text(
+            child: Text(
               ArKwStrings.resendCode,
               style: TextStyle(color: AppColors.link),
             ),

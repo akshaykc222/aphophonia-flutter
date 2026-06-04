@@ -3,10 +3,10 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/l10n/ar_kw_strings.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../shared/widgets/app_button.dart';
-import '../../auth/presentation/auth_providers.dart';
 import '../data/onboarding_prefs.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -20,30 +20,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _pageController = PageController();
   int _page = 0;
 
-  static const _slides = [
-    (
-      icon: Icons.newspaper,
-      title: 'كل إصدارات الجريدة',
-      body: 'تصفح مقالات ومراسيم ومناقصات السور المنشورة رسمياً.',
-    ),
-    (
-      icon: Icons.category,
-      title: 'أقسام ووزارات',
-      body: 'انتقل بين الأقسام والوزارات والمناقصات بسرعة.',
-    ),
-    (
-      icon: Icons.bookmark,
-      title: 'احفظ ما يهمك',
-      body: 'احفظ المحتوى للقراءة لاحقاً دون الحاجة لتسجيل الدخول.',
-    ),
-  ];
+  static const _slideCount = 3;
 
   Future<void> _finish() async {
     await OnboardingPrefs.markComplete();
     if (!mounted) return;
-    final authed = ref.read(isAuthenticatedProvider);
-    // Continue to main app (guests can browse news without signing in).
-    context.go(authed ? '/' : '/auth/sign-in');
+    context.go('/');
   }
 
   @override
@@ -62,34 +44,38 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               alignment: AlignmentDirectional.centerEnd,
               child: TextButton(
                 onPressed: _finish,
-                child: const Text('تخطي'),
+                child: Text(ArKwStrings.onboardingSkip),
               ),
             ),
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
-                itemCount: _slides.length,
+                itemCount: _slideCount,
                 onPageChanged: (i) => setState(() => _page = i),
                 itemBuilder: (context, index) {
-                  final slide = _slides[index];
+                  final icons = [
+                    Icons.newspaper,
+                    Icons.category,
+                    Icons.smart_toy,
+                  ];
                   return Padding(
                     padding: const EdgeInsets.all(AppSpacing.xl),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(slide.icon, size: 80, color: AppColors.accent)
+                        Icon(icons[index], size: 80, color: AppColors.accent)
                             .animate()
                             .fadeIn()
                             .scale(),
                         const SizedBox(height: AppSpacing.xl),
                         Text(
-                          slide.title,
+                          ArKwStrings.onboardingSlideTitle(index),
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: AppSpacing.md),
                         Text(
-                          slide.body,
+                          ArKwStrings.onboardingSlideBody(index),
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -105,7 +91,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                _slides.length,
+                _slideCount,
                 (i) => Container(
                   width: 8,
                   height: 8,
@@ -120,9 +106,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
               child: AppButton(
-                label: _page == _slides.length - 1 ? 'ابدأ' : 'التالي',
+                label: _page == _slideCount - 1
+                    ? ArKwStrings.onboardingStart
+                    : ArKwStrings.onboardingNext,
                 onPressed: () {
-                  if (_page < _slides.length - 1) {
+                  if (_page < _slideCount - 1) {
                     _pageController.nextPage(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeOut,

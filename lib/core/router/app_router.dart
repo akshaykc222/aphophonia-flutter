@@ -22,7 +22,6 @@ import '../../features/subscription/presentation/subscription_screen.dart';
 import '../../features/tenders/presentation/tenders_screen.dart';
 import '../../features/capt_tenders/presentation/capt_tender_detail_screen.dart';
 import '../../features/capt_tenders/domain/capt_tender.dart';
-
 final _rootKey = GlobalKey<NavigatorState>();
 final _shellKey = GlobalKey<NavigatorState>();
 
@@ -38,17 +37,18 @@ final routerProvider = Provider<GoRouter>((ref) {
       final path = state.matchedLocation;
       final isAuth = path.startsWith('/auth');
 
-      if (session == null && routeRequiresAuth(path)) {
-        final redirect = Uri.encodeComponent(path);
-        return '/auth/sign-in?redirect=$redirect';
+      if (session == null && !routeIsPublic(path)) {
+        return '/auth/sign-in';
       }
+
+      if (session != null && routeIsOnboarding(path)) {
+        return null;
+      }
+
       if (session != null && isAuth) {
-        final redirect = state.uri.queryParameters['redirect'];
-        if (redirect != null && redirect.isNotEmpty) {
-          return redirect;
-        }
-        return '/';
+        return '/splash';
       }
+
       return null;
     },
     routes: [
@@ -74,6 +74,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           s,
           OtpScreen(email: s.extra as String? ?? ''),
         ),
+      ),
+      GoRoute(
+        path: '/subscription',
+        pageBuilder: (c, s) => _page(s, const SubscriptionScreen(required: true)),
       ),
       ShellRoute(
         navigatorKey: _shellKey,
@@ -105,10 +109,6 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/favorites',
         pageBuilder: (c, s) => _page(s, const FavoritesScreen()),
-      ),
-      GoRoute(
-        path: '/subscription',
-        pageBuilder: (c, s) => _page(s, const SubscriptionScreen()),
       ),
       GoRoute(
         path: '/help',

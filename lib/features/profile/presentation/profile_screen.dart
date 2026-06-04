@@ -5,7 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/config/env.dart';
+import '../../../core/l10n/app_locale.dart';
 import '../../../core/l10n/ar_kw_strings.dart';
+import '../../../core/l10n/locale_provider.dart';
 import '../../../shared/widgets/legal_links.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
@@ -19,7 +21,8 @@ class ProfileScreen extends ConsumerWidget {
     final session = ref.watch(authSessionProvider).valueOrNull;
     final user = session?.user;
     final displayName = _displayName(user);
-    final avatarLetter = (displayName ?? user?.email ?? 'م')[0].toUpperCase();
+    final avatarLetter = (displayName ?? user?.email ?? '?')[0].toUpperCase();
+    final locale = ref.watch(localeProvider);
 
     return Scaffold(
       backgroundColor: AppColors.primary,
@@ -53,7 +56,7 @@ class ProfileScreen extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              displayName ?? session?.user.email ?? ArKwStrings.guest,
+                              displayName ?? session?.user.email ?? '',
                               style: AppTypography.body16Semi.copyWith(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -116,6 +119,39 @@ class ProfileScreen extends ConsumerWidget {
                 _tile(Icons.card_membership_outlined, ArKwStrings.subscription,
                     () => context.push('/subscription')),
                 _sectionHeader(ArKwStrings.settings),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                  child: Row(
+                    children: [
+                      Icon(Icons.language, color: AppColors.foreground, size: 22),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          ArKwStrings.language,
+                          style: AppTypography.body16.copyWith(fontSize: 16),
+                        ),
+                      ),
+                      SegmentedButton<AppLocale>(
+                        segments: [
+                          ButtonSegment(
+                            value: AppLocale.ar,
+                            label: Text(ArKwStrings.languageArabic),
+                          ),
+                          ButtonSegment(
+                            value: AppLocale.en,
+                            label: Text(ArKwStrings.languageEnglish),
+                          ),
+                        ],
+                        selected: {locale},
+                        onSelectionChanged: (selected) {
+                          ref
+                              .read(localeProvider.notifier)
+                              .setLocale(selected.first);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
                 _tile(Icons.settings_outlined, ArKwStrings.settings, () {}),
                 _tile(
                   Icons.privacy_tip_outlined,

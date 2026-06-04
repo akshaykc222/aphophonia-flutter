@@ -23,10 +23,10 @@ class FavoritesScreen extends ConsumerWidget {
       body: saved.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, __) =>
-            const EmptyState(title: ArKwStrings.loadFavoritesFailed),
+            EmptyState(title: ArKwStrings.loadFavoritesFailed),
         data: (items) {
           if (items.isEmpty) {
-            return const EmptyState(
+            return EmptyState(
               title: ArKwStrings.favoritesEmpty,
               icon: Icons.favorite_border,
             );

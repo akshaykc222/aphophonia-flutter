@@ -53,10 +53,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         password: _password.text,
       );
       if (!mounted) return;
-      final redirect = GoRouterState.of(context).uri.queryParameters['redirect'];
-      context.go(
-        redirect != null && redirect.isNotEmpty ? redirect : '/',
-      );
+      context.go('/splash');
     } on AuthException catch (e) {
       setState(() => _error = mapAuthError(e));
     } catch (e) {
@@ -77,7 +74,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       await repo.resetPassword(_email.text.trim());
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(ArKwStrings.resetEmailSent)),
+        SnackBar(content: Text(ArKwStrings.resetEmailSent)),
       );
     } on AuthException catch (e) {
       setState(() => _error = mapAuthError(e));
@@ -117,7 +114,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
             ),
             GestureDetector(
               onTap: () => context.push('/auth/sign-up'),
-              child: const Text(
+              child: Text(
                 ArKwStrings.signUp,
                 style: TextStyle(
                   fontSize: 14,
@@ -185,18 +182,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 style: AppTypography.body16.copyWith(
                   fontSize: 14,
                   color: AppColors.muted,
-                ),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            TextButton(
-              onPressed: _loading ? null : () => context.go('/'),
-              child: Text(
-                ArKwStrings.browseWithoutAccount,
-                style: AppTypography.body16.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.link,
                 ),
               ),
             ),

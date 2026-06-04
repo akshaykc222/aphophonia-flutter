@@ -112,7 +112,7 @@ class _ContentDetailScreenState extends ConsumerState<ContentDetailScreen> {
       data: (item) {
         if (item == null) {
           return AppScaffold(
-            body: const EmptyState(title: ArKwStrings.contentNotFound),
+            body: EmptyState(title: ArKwStrings.contentNotFound),
           );
         }
 

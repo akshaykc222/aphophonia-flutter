@@ -96,7 +96,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         data: (categories) {
           if (categories.isEmpty) {
-            return const EmptyState(title: ArKwStrings.noCategories);
+            return EmptyState(title: ArKwStrings.noCategories);
           }
 
           final safeIndex = _tabIndex(categories, _selectedCategoryId);
@@ -216,7 +216,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       data: (tenders) {
         if (tenders.isEmpty) {
-          return const SliverFillRemaining(
+          return SliverFillRemaining(
             hasScrollBody: false,
             child: EmptyState(title: ArKwStrings.noCaptTenders),
           );
@@ -264,7 +264,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       data: (page) {
         if (page.items.isEmpty) {
-          return const SliverFillRemaining(
+          return SliverFillRemaining(
             hasScrollBody: false,
             child: EmptyState(title: ArKwStrings.noPublishedContent),
           );

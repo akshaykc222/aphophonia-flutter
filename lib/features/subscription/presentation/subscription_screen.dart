@@ -16,6 +16,7 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../shared/widgets/app_scaffold.dart';
 import '../../auth/presentation/auth_providers.dart';
+import '../../onboarding/data/onboarding_prefs.dart';
 import '../../auth/presentation/widgets/auth_primary_button.dart';
 import '../data/billing_repository.dart';
 import '../domain/billing_status.dart';
@@ -437,10 +438,12 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen>
       body: _paymentSuccess
           ? _SuccessView(
               required: widget.required,
-              onContinue: () {
+              onContinue: () async {
                 ref.invalidate(billingStatusProvider);
                 if (widget.required) {
-                  context.go('/');
+                  final onboardingDone = await OnboardingPrefs.isComplete();
+                  if (!context.mounted) return;
+                  context.go(onboardingDone ? '/' : '/onboarding');
                 } else {
                   context.pop(true);
                 }
@@ -600,7 +603,7 @@ class _PricingCard extends StatelessWidget {
                     color: AppColors.primary.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text(
+                  child: Text(
                     ArKwStrings.currentPlan,
                     style: TextStyle(
                       fontSize: 12,

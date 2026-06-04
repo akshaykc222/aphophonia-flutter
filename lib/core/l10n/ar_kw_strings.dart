@@ -1,174 +1,151 @@
-/// Kuwait Arabic UI copy (السور).
+import 'app_strings.dart' show AppStrings;
+import 'strings_binding.dart';
+
+/// UI strings — delegates to [StringsBinding] (Arabic or English).
 abstract final class ArKwStrings {
-  static const appName = 'السور';
+  static AppStrings get _ => StringsBinding.current;
 
-  // Auth
-  static const welcomeBack = 'مرحباً بعودتك! 👋';
-  static const signInSubtitle = 'سجّل الدخول إلى حساب الأخبار الخاص بك.';
-  static const welcome = 'مرحباً';
-  static const email = 'البريد الإلكتروني';
-  static const emailHint = 'example@email.com';
-  static const fullName = 'الاسم الكامل';
-  static const fullNameHint = 'أدخل اسمك';
-  static const password = 'كلمة المرور';
-  static const passwordHint = 'أدخل كلمة المرور';
-  static const signIn = 'تسجيل الدخول';
-  static const signUp = 'إنشاء حساب';
-  static const noAccount = 'ليس لديك حساب؟ ';
-  static const hasAccount = 'لديك حساب بالفعل؟ ';
-  static const forgotPassword = 'نسيت كلمة المرور؟';
-  static const resetEmailSent = 'تحقق من بريدك لإعادة تعيين كلمة المرور';
-  static const createAccount = 'أنشئ حسابك';
-  static const signUpSubtitle =
-      'انضم إلى مجتمعنا واستمتع بطريقة سلسة لقراءة الأخبار';
-  static const continueBtn = 'متابعة';
-  static const termsAgree =
-      'بالمتابعة، أنت تقر وتوافق على شروط الاستخدام وسياسة الخصوصية.';
-  static const privacyPolicy = 'سياسة الخصوصية';
-  static const termsOfUse = 'شروط الاستخدام';
-  static const browseWithoutAccount = 'تصفح بدون تسجيل';
-  static const otpTitle = 'رمز التحقق';
-  static String otpSubtitle(String email) =>
-      'أدخل الرمز المكوّن من 6 أرقام الذي أرسلناه إلى\n$email';
-  static const verify = 'تحقق';
-  static const resendCode = 'إعادة إرسال الرمز';
-  static const codeResent = 'تم إرسال رمز جديد إلى بريدك';
-
-  // Nav
-  static const navHome = 'الرئيسية';
-  static const navAssistant = 'Ai tender';
-  static const navTenders = 'المناقصات';
-  static const navProfile = 'الملف الشخصي';
-
-  // Home / feed
-  static const searchArticles = 'ابحث في الأخبار...';
-  static const latestNews = 'آخر الأخبار';
-  static const latestTendersTab = 'أحدث المناقصات';
-  static const newBadge = 'جديد';
-  static const noCaptTenders = 'لا توجد مناقصات حالياً';
-  static const loadCaptTendersFailed = 'تعذر تحميل أحدث المناقصات';
-  static const captSource = 'الجهاز المركزي للمناقصات';
-  static const captSourceShort = 'CAPT';
-  static const captDeadline = 'آخر موعد';
-
-  // Date filter
-  static const dateFilterTitle = 'تصفية بالتاريخ';
-  static const dateFilterAll = 'كل التواريخ';
-  static const dateFilterSingleDay = 'يوم محدد';
-  static const dateFilterRange = 'فترة زمنية';
-  static const dateFilterFrom = 'من';
-  static const dateFilterTo = 'إلى';
-  static const dateFilterPickDay = 'اختر اليوم';
-  static const dateFilterApply = 'تطبيق';
-  static const dateFilterClear = 'مسح التصفية';
-  static const forYou = 'مختارات لك';
-  static const searchTenders = 'ابحث في المناقصات...';
-
-  // AI chat
-  static const chatTitle = 'مساعد السور';
-  static const chatWelcome =
-      'أهلاً! أنا مساعد السور. اسألني عن الأخبار والمناقصات والمراسيم أو عن استخدام التطبيق.';
-  static const chatHint = 'اكتب سؤالك...';
-  static const chatFailed = 'تعذر إرسال الرسالة. حاول مرة ثانية.';
-  static const chatNotConfigured =
-      'المساعد غير متاح. أضف ADMIN_API_URL في إعدادات التطبيق.';
-  static const chatNotSignedIn = 'سجّل الدخول لاستخدام المساعد.';
-  static const chatSessionLoading = 'جاري التحقق من الجلسة...';
-  static const chatUnauthorized = 'انتهت الجلسة. سجّل الدخول مرة ثانية.';
-  static const chatUnavailable = 'المساعد غير متاح حالياً.';
-  static const chatInformationSourceReply =
-      'I will not tell you — they will replace me with a human!';
-  static const chatOutOfScopeReply =
-      'ما أقدر أجاوب على هالسؤال… إذا غلّطت بيحطون مكاني إنسان حقيقي وأنا ما أبي!';
-
-  // Search
-  static const searchHint = 'ابحث...';
-  static const recentSearch = 'بحث حديث';
-  static const searchFailed = 'تعذر إجراء البحث';
-  static String noResults(String query) => 'لا توجد نتائج لـ «$query»';
-
-  // Profile
-  static const profile = 'الملف الشخصي';
-  static const guest = 'زائر';
-  static const manageAccount = 'إدارة حسابك';
-  static const services = 'الخدمات';
-  static const favorites = 'المفضلة';
-  static const notifications = 'الإشعارات';
-  static const subscription = 'الاشتراك';
-  static const settings = 'الإعدادات';
-  static const help = 'المساعدة';
-  static const signOut = 'تسجيل الخروج';
-
-  // Subscription
-  static const subscriptionTitle = 'الاشتراك';
-  static const currentSubscription = 'الاشتراك الحالي';
-  static const activeStatus = 'نشط';
-  static const purchaseDate = 'تاريخ الشراء';
-  static const expiryDate = 'تاريخ الانتهاء';
-  static const daysRemainingLabel = 'الأيام المتبقية';
-  static const subscriptionPrice = 'قيمة الاشتراك';
-  static const currentPlan = 'اشتراكك الحالي';
-  static const subscriptionIntro =
-      'اختر الباقة المناسبة للوصول الكامل إلى الخدمات ومتابعة أحدث المناقصات والإعلانات الحكومية.';
-  static const plan3Months = '3 أشهر';
-  static const plan1Year = 'سنة واحدة';
-  static const price3Months = '٩٫٩٩٩ د.ك';
-  static const price1Year = '٢٩٫٩٩٩ د.ك';
-  static const plan3MonthsDesc = 'وصول كامل لجميع مزايا الاشتراك لمدة 3 أشهر.';
-  static const plan1YearDesc = 'أفضل قيمة مع وصول كامل لمدة سنة.';
-  static const bestValue = 'الأفضل قيمة';
-  static const subscribe = 'اشترك الآن';
-  static const subscriptionPaywallIntro =
-      'الاشتراك مطلوب للوصول إلى محتوى السور. اختر باقة للمتابعة.';
-  static String subscriptionActiveUntil(int days) =>
-      'اشتراكك نشط — متبقي $days يوماً';
-  static const subscriptionActiveLifetime =
-      'اشتراكك نشط — مدى الحياة';
-  static const billingNotConfigured =
-      'خدمة الدفع غير مهيّأة. أضف ADMIN_API_URL في إعدادات التطبيق.';
-  static const billingStatusLoadFailed =
-      'تعذر التحقق من حالة الاشتراك. تحقق من الاتصال وحاول مرة ثانية.';
-  static const billingCheckPayment = 'تحقق من الدفع';
-  static const billingGatewayUnavailable =
-      'بوابة الدفع غير متاحة حالياً. حاول لاحقاً.';
-  static const billingOpenPaymentFailed = 'تعذر فتح صفحة الدفع.';
-  static const billingConfirmingPayment = 'جاري تأكيد الدفع…';
-  static const billingPendingConfirmation =
-      'لم يُفعَّل الاشتراك بعد. إذا دفعت، انتظر دقيقة ثم حدّث الصفحة.';
-  static const billingCheckoutFailed = 'تعذر بدء الدفع. حاول مرة أخرى.';
-  static const billingPlansLoadFailed = 'تعذر تحميل خطط الاشتراك';
-  static const billingNoPlans = 'لا توجد خطط متاحة حالياً';
-  static const billingProcessing = 'جاري المعالجة…';
-  static const subscriptionRequired = 'يلزم اشتراك نشط لاستخدام المساعد';
-  static const paymentTitle = 'الدفع الإلكتروني';
-  static const paymentSuccess = 'تم تفعيل اشتراكك بنجاح!';
-  static const paymentFailed = 'فشلت عملية الدفع. يرجى المحاولة مرة أخرى.';
-  static const paymentCancelled = 'تم إلغاء عملية الدفع.';
-  static const ok = 'موافق';
-
-  // Errors / empty
-  static const retry = 'إعادة المحاولة';
-  static const loadCategoriesFailed = 'تعذر تحميل التصنيفات';
-  static const noCategories = 'لا توجد تصنيفات';
-  static const loadContentFailed = 'تعذر تحميل المحتوى';
-  static const noPublishedContent = 'لا يوجد محتوى منشور';
-  static const loadNewsFailed = 'تعذر تحميل الأخبار';
-  static const loadTendersFailed = 'تعذر تحميل المناقصات';
-  static const noTenders = 'لا توجد مناقصات';
-  static const contentNotFound = 'المحتوى غير موجود';
-  static const noFullText = 'لا يتوفر نص كامل لهذا المحتوى.';
-  static const linkCopied = 'تم نسخ الرابط';
-  static const applyLink = 'رابط التقديم';
-  static const deadline = 'آخر موعد';
-  static const publishedOn = 'نُشر في';
-  static const supabaseNotConfigured =
-      'تعذر الاتصال بالخادم. تحقق من إعدادات التطبيق.';
-
-  static const loadFavoritesFailed = 'تعذر تحميل المفضلة';
-  static const favoritesEmpty = 'لا توجد عناصر محفوظة';
-  static const notificationsTitle = 'الإشعارات';
-  static const today = 'اليوم';
-  static const yesterday = 'أمس';
-
-  static const allCategories = 'الكل';
+  static String get appName => _.appName;
+  static String get welcomeBack => _.welcomeBack;
+  static String get signInSubtitle => _.signInSubtitle;
+  static String get welcome => _.welcome;
+  static String get email => _.email;
+  static String get emailHint => _.emailHint;
+  static String get fullName => _.fullName;
+  static String get fullNameHint => _.fullNameHint;
+  static String get password => _.password;
+  static String get passwordHint => _.passwordHint;
+  static String get signIn => _.signIn;
+  static String get signUp => _.signUp;
+  static String get noAccount => _.noAccount;
+  static String get hasAccount => _.hasAccount;
+  static String get forgotPassword => _.forgotPassword;
+  static String get resetEmailSent => _.resetEmailSent;
+  static String get createAccount => _.createAccount;
+  static String get signUpSubtitle => _.signUpSubtitle;
+  static String get continueBtn => _.continueBtn;
+  static String get termsAgreeLead => _.termsAgreeLead;
+  static String get termsAgreeAnd => _.termsAgreeAnd;
+  static String get termsAgreeEnd => _.termsAgreeEnd;
+  static String get privacyPolicy => _.privacyPolicy;
+  static String get termsOfUse => _.termsOfUse;
+  static String get language => _.language;
+  static String get languageArabic => _.languageArabic;
+  static String get languageEnglish => _.languageEnglish;
+  static String otpSubtitle(String email) => _.otpSubtitle(email);
+  static String get verify => _.verify;
+  static String get resendCode => _.resendCode;
+  static String get codeResent => _.codeResent;
+  static String get otpTitle => _.otpTitle;
+  static String get navHome => _.navHome;
+  static String get navAssistant => _.navAssistant;
+  static String get navTenders => _.navTenders;
+  static String get navProfile => _.navProfile;
+  static String get searchArticles => _.searchArticles;
+  static String get latestNews => _.latestNews;
+  static String get latestTendersTab => _.latestTendersTab;
+  static String get newBadge => _.newBadge;
+  static String get noCaptTenders => _.noCaptTenders;
+  static String get loadCaptTendersFailed => _.loadCaptTendersFailed;
+  static String get captSource => _.captSource;
+  static String get captSourceShort => _.captSourceShort;
+  static String get captDeadline => _.captDeadline;
+  static String get dateFilterTitle => _.dateFilterTitle;
+  static String get dateFilterAll => _.dateFilterAll;
+  static String get dateFilterSingleDay => _.dateFilterSingleDay;
+  static String get dateFilterRange => _.dateFilterRange;
+  static String get dateFilterFrom => _.dateFilterFrom;
+  static String get dateFilterTo => _.dateFilterTo;
+  static String get dateFilterPickDay => _.dateFilterPickDay;
+  static String get dateFilterApply => _.dateFilterApply;
+  static String get dateFilterClear => _.dateFilterClear;
+  static String get forYou => _.forYou;
+  static String get searchTenders => _.searchTenders;
+  static String get chatTitle => _.chatTitle;
+  static String get chatWelcome => _.chatWelcome;
+  static String get chatHint => _.chatHint;
+  static String get chatFailed => _.chatFailed;
+  static String get chatNotConfigured => _.chatNotConfigured;
+  static String get chatNotSignedIn => _.chatNotSignedIn;
+  static String get chatSessionLoading => _.chatSessionLoading;
+  static String get chatUnauthorized => _.chatUnauthorized;
+  static String get chatUnavailable => _.chatUnavailable;
+  static String get chatInformationSourceReply => _.chatInformationSourceReply;
+  static String get chatOutOfScopeReply => _.chatOutOfScopeReply;
+  static String get searchHint => _.searchHint;
+  static String get recentSearch => _.recentSearch;
+  static String get searchFailed => _.searchFailed;
+  static String noResults(String query) => _.noResults(query);
+  static String get profile => _.profile;
+  static String get manageAccount => _.manageAccount;
+  static String get services => _.services;
+  static String get favorites => _.favorites;
+  static String get notifications => _.notifications;
+  static String get subscription => _.subscription;
+  static String get settings => _.settings;
+  static String get help => _.help;
+  static String get signOut => _.signOut;
+  static String get subscriptionTitle => _.subscriptionTitle;
+  static String get currentSubscription => _.currentSubscription;
+  static String get activeStatus => _.activeStatus;
+  static String get purchaseDate => _.purchaseDate;
+  static String get expiryDate => _.expiryDate;
+  static String get daysRemainingLabel => _.daysRemainingLabel;
+  static String get subscriptionPrice => _.subscriptionPrice;
+  static String get currentPlan => _.currentPlan;
+  static String get subscriptionIntro => _.subscriptionIntro;
+  static String get plan3Months => _.plan3Months;
+  static String get plan1Year => _.plan1Year;
+  static String get price3Months => _.price3Months;
+  static String get price1Year => _.price1Year;
+  static String get plan3MonthsDesc => _.plan3MonthsDesc;
+  static String get plan1YearDesc => _.plan1YearDesc;
+  static String get bestValue => _.bestValue;
+  static String get subscribe => _.subscribe;
+  static String get subscriptionPaywallIntro => _.subscriptionPaywallIntro;
+  static String subscriptionActiveUntil(int days) => _.subscriptionActiveUntil(days);
+  static String get subscriptionActiveLifetime => _.subscriptionActiveLifetime;
+  static String get billingNotConfigured => _.billingNotConfigured;
+  static String get billingStatusLoadFailed => _.billingStatusLoadFailed;
+  static String get billingCheckPayment => _.billingCheckPayment;
+  static String get billingGatewayUnavailable => _.billingGatewayUnavailable;
+  static String get billingOpenPaymentFailed => _.billingOpenPaymentFailed;
+  static String get billingConfirmingPayment => _.billingConfirmingPayment;
+  static String get billingPendingConfirmation => _.billingPendingConfirmation;
+  static String get billingCheckoutFailed => _.billingCheckoutFailed;
+  static String get billingPlansLoadFailed => _.billingPlansLoadFailed;
+  static String get billingNoPlans => _.billingNoPlans;
+  static String get billingProcessing => _.billingProcessing;
+  static String get subscriptionRequired => _.subscriptionRequired;
+  static String get paymentTitle => _.paymentTitle;
+  static String get paymentSuccess => _.paymentSuccess;
+  static String get paymentFailed => _.paymentFailed;
+  static String get paymentCancelled => _.paymentCancelled;
+  static String get ok => _.ok;
+  static String get retry => _.retry;
+  static String get loadCategoriesFailed => _.loadCategoriesFailed;
+  static String get noCategories => _.noCategories;
+  static String get loadContentFailed => _.loadContentFailed;
+  static String get noPublishedContent => _.noPublishedContent;
+  static String get loadNewsFailed => _.loadNewsFailed;
+  static String get loadTendersFailed => _.loadTendersFailed;
+  static String get noTenders => _.noTenders;
+  static String get contentNotFound => _.contentNotFound;
+  static String get noFullText => _.noFullText;
+  static String get linkCopied => _.linkCopied;
+  static String get applyLink => _.applyLink;
+  static String get deadline => _.deadline;
+  static String get publishedOn => _.publishedOn;
+  static String get supabaseNotConfigured => _.supabaseNotConfigured;
+  static String get loadFavoritesFailed => _.loadFavoritesFailed;
+  static String get favoritesEmpty => _.favoritesEmpty;
+  static String get notificationsTitle => _.notificationsTitle;
+  static String get today => _.today;
+  static String get yesterday => _.yesterday;
+  static String get allCategories => _.allCategories;
+  static String get onboardingSkip => _.onboardingSkip;
+  static String get onboardingStart => _.onboardingStart;
+  static String get onboardingNext => _.onboardingNext;
+  static String onboardingSlideTitle(int index) => _.onboardingSlideTitle(index);
+  static String onboardingSlideBody(int index) => _.onboardingSlideBody(index);
 }

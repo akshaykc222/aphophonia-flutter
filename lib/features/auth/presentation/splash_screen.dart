@@ -5,8 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_assets.dart';
+import '../../../core/router/app_entry.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../onboarding/data/onboarding_prefs.dart';
+
 /// Figma splash frame `23:905` — 375×812, fill `#171717`, logo 187×187 @ (94, 251).
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -32,14 +33,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     await Future<void>.delayed(const Duration(milliseconds: 2200));
     if (!mounted) return;
 
-    final onboardingDone = await OnboardingPrefs.isComplete();
+    final next = await resolveEntryRoute(ref);
     if (!mounted) return;
-    if (!onboardingDone) {
-      context.go('/onboarding');
-      return;
-    }
-
-    context.go('/');
+    context.go(next);
   }
 
   @override

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'core/l10n/app_locale.dart';
 import 'core/l10n/ar_kw_strings.dart';
+import 'core/l10n/locale_provider.dart';
 import 'core/providers/push_notifications_listener.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
@@ -13,13 +15,18 @@ class ApopheniaApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final locale = ref.watch(localeProvider);
+    final isArabic = locale == AppLocale.ar;
 
     return MaterialApp.router(
       title: ArKwStrings.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
-      locale: const Locale('ar', 'KW'),
-      supportedLocales: const [Locale('ar', 'KW')],
+      locale: isArabic ? const Locale('ar', 'KW') : const Locale('en'),
+      supportedLocales: const [
+        Locale('ar', 'KW'),
+        Locale('en'),
+      ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -28,7 +35,7 @@ class ApopheniaApp extends ConsumerWidget {
       builder: (context, child) {
         return PushNotificationsListener(
           child: Directionality(
-            textDirection: TextDirection.rtl,
+            textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
             child: child ?? const SizedBox.shrink(),
           ),
         );

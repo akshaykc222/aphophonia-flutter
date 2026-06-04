@@ -37,21 +37,21 @@ class SignUpLegalText extends StatelessWidget {
       text: TextSpan(
         style: baseStyle,
         children: [
-          const TextSpan(text: 'بالمتابعة، أنت توافق على '),
+          TextSpan(text: ArKwStrings.termsAgreeLead),
           TextSpan(
             text: ArKwStrings.termsOfUse,
             style: linkStyle,
             recognizer: TapGestureRecognizer()
               ..onTap = () => openLegalUrl(terms),
           ),
-          const TextSpan(text: ' و'),
+          TextSpan(text: ArKwStrings.termsAgreeAnd),
           TextSpan(
             text: ArKwStrings.privacyPolicy,
             style: linkStyle,
             recognizer: TapGestureRecognizer()
               ..onTap = () => openLegalUrl(privacy),
           ),
-          const TextSpan(text: '.'),
+          TextSpan(text: ArKwStrings.termsAgreeEnd),
         ],
       ),
     );

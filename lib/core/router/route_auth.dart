@@ -1,9 +1,9 @@
-/// Routes that require a signed-in user (account-based features).
-bool routeRequiresAuth(String path) {
-  if (path.startsWith('/auth')) return false;
-  if (path == '/splash' || path == '/onboarding') return false;
-  if (path.startsWith('/favorites')) return true;
-  if (path.startsWith('/subscription')) return true;
-  if (path.startsWith('/notifications')) return true;
+/// Public routes (no session required).
+bool routeIsPublic(String path) {
+  if (path == '/splash') return true;
+  if (path.startsWith('/auth')) return true;
   return false;
 }
+
+/// Onboarding only after auth + subscription (splash routes here).
+bool routeIsOnboarding(String path) => path == '/onboarding';

@@ -66,7 +66,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       final session = repo.currentSession;
       if (!mounted) return;
       if (session != null) {
-        context.go('/');
+        context.go('/subscription');
       } else {
         context.push('/auth/otp', extra: email);
       }

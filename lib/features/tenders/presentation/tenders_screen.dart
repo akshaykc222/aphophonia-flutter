@@ -158,7 +158,7 @@ class _TendersScreenState extends ConsumerState<TendersScreen> {
                 ),
                 data: (items) {
                   if (items.isEmpty) {
-                    return const EmptyState(title: ArKwStrings.noTenders);
+                    return EmptyState(title: ArKwStrings.noTenders);
                   }
                   return ListView.builder(
                     padding: const EdgeInsets.all(20),

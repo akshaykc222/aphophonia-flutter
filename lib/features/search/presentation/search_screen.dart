@@ -119,7 +119,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       onSubmitted: _runSearch,
                       textInputAction: TextInputAction.search,
                       style: const TextStyle(color: AppColors.foreground),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: ArKwStrings.searchArticles,
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
