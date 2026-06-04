@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "624815648508",
+    "project_id": "apophenia-1c2a1",
+    "storage_bucket": "apophenia-1c2a1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624815648508:android:55d7952255e3dea90cb179",
+        "android_client_info": {
+          "package_name": "com.alfaresi.apophenia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAgw5ABSsj6zECPu8Vh64CBW2lSoIZJsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624815648508:android:2b785b1e5cf6cf770cb179",
+        "android_client_info": {
+          "package_name": "com.apophenia.apophenia_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAgw5ABSsj6zECPu8Vh64CBW2lSoIZJsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
