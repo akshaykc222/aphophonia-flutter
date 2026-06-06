@@ -47,6 +47,9 @@ app.*.map.json
 # Environment
 .env
 
+# Firebase (generated locally — do not commit)
+lib/firebase_options.dart
+
 # Android release signing (project root)
 key.properties
 upload-keystore.jks
